@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:yes_no_app/presentation/widgets/chat/her_message_bubble.dart';
+import 'package:yes_no_app/presentation/widgets/chat/my_message_bubble.dart';
+import 'package:yes_no_app/presentation/widgets/shared/message_field.dart';
+
+class ChatScreen extends StatelessWidget {
+  const ChatScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar
+      (
+        leading: Padding
+        (
+          padding: const EdgeInsets.all(4.0),
+          child: CircleAvatar
+          (
+             backgroundImage: NetworkImage('https://assets.laliga.com/squad/2025/t178/p490541/256x256/p490541_t178_2025_1_003_000.png'),   
+          ),
+        ),
+        title: const Text('Pedri 8'),
+        centerTitle: false,
+      ),
+      body: _ChatView(),
+    );
+  }
+}
+
+class _ChatView extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea
+    (
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Column
+        (
+          children: 
+          [
+            Expanded(child: ListView.builder(
+              itemCount: 20,
+              itemBuilder: (context, index) 
+              { 
+                if (index % 2 == 0) {
+                  return MyMessageBubble();
+                } else {
+                  return HerMessageBubble();
+                }
+              },
+            )),
+              MessageBox(),
+          ],
+        ),
+      ),
+    );
+  }
+}
