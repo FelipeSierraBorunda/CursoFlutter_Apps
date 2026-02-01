@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
-class MyMessageBubble extends StatelessWidget {
-  const MyMessageBubble({super.key});
+class MyMessageBubble extends StatelessWidget 
+{
+  final String messageText;
+
+  const MyMessageBubble({
+    super.key,
+    required this.messageText,
+  });
 
   @override
   Widget build(BuildContext context) {
-final colors = Theme.of(context).colorScheme;
+  
+
+  final colors = Theme.of(context).colorScheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -17,7 +25,7 @@ final colors = Theme.of(context).colorScheme;
             ),
             child:  Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-              child: Text('hola como estas', style: TextStyle(color: colors.onPrimary, fontWeight: FontWeight.bold)),
+              child: Text(messageText, style: TextStyle(color: colors.onPrimary, fontWeight: FontWeight.bold)),
             ),
           ),
            SizedBox(height: 10.0),

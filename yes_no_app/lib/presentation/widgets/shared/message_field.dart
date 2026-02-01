@@ -1,37 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:yes_no_app/presentation/providers/chat_provider.dart';
 
 class MessageBox extends StatelessWidget {
-  const MessageBox({super.key});dxsdsd
+  final ValueChanged<String> onValue ;
+  const MessageBox({super.key, required this.onValue});
 
   @override
-  Widget build(BuildContext context) {
-final colors = Theme.of(context).colorScheme; 
+  Widget build(BuildContext context) 
+  {
+      
+      final textController = TextEditingController();
+      final focusNode  = FocusNode();
 
-final OutlineInputBorder = UnderlineInputBorder(
-      borderRadius: BorderRadius.circular(12.0),
-      borderSide: BorderSide(
-        color: colors.primary,
-      ),
-    );
+      final colors = Theme.of(context).colorScheme; 
 
-final inputDecoration = InputDecoration
+      final OutlineInputBorder = UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+            borderSide: BorderSide(
+              color: colors.primary,
+            ),
+          );
+
+      final inputDecoration = InputDecoration
       (
+        hintText: 'Type your message',
         enabledBorder: OutlineInputBorder,
         focusedBorder: OutlineInputBorder,
         filled: true,
         fillColor: colors.primaryContainer,
-        suffixIcon: IconButton(onPressed: (){
-          
+        suffixIcon: IconButton(onPressed: ()
+        {
+          final textValure = textController.value.text;
+          textController.clear();
+          onValue(textValure);
+
         }, 
         icon: Icon(  Icons.send_outlined)),
       );
 
     return TextFormField
     (
+      focusNode: focusNode,
+      controller: textController,
       decoration: inputDecoration,
-      onChanged: (value) {
-        print(  'value: $value'  );
+      onFieldSubmitted: (value) 
+      {
+        textController.clear();
+        focusNode.requestFocus();
+        onValue(value);
       },
+
     );
   }
 }
